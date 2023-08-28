@@ -11,7 +11,7 @@ public:
 	virtual GameScene NextScene();
 
 protected:
-	bool sceneEndFlag;
-	GameScene nextScene;
+	bool sceneEndFlag;//このシーンが終わったらtrue
+	GameScene nextScene;//次のシーン名
 };
 

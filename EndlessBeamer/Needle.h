@@ -4,9 +4,12 @@ class Needle :
     public ObstructBase
 {
 public:
-    Needle(VECTOR _pos);
-    virtual ~Needle();
-    void Update(float deltaTime)override;
-    void Draw()override;
+    Needle(VECTOR _pos);//コンストラクタ
+    virtual ~Needle();//デストラクタ
+    void Update(float deltaTime)override;//毎フレーム呼び出す
+    void Draw()override;//描画
+
+private:
+    VECTOR bottomPos;
 };
 
