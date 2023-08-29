@@ -16,6 +16,7 @@ Needle::Needle(VECTOR _pos)
 	color = GetColor(0, MaxColorValue, 0);
 	type = NEEDLE;
 	hp = DefaultHP;
+	posMarker = pos;
 }
 
 Needle::~Needle()
@@ -26,7 +27,9 @@ void Needle::Update(float deltaTime)
 {
 	pos.z -= Speed * deltaTime;//zç¿ïWÇå∏ÇÁÇ∑
 	bottomPos = pos;
+	posMarker = pos;
 	bottomPos.z += NeedleLength;
+	posMarker.y = MarkerPosY;
 	if (hp < 0.f)
 	{
 		deadFlag = true;
@@ -39,4 +42,6 @@ void Needle::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, MainAlphaRatio);
 	DrawCone3D(pos, bottomPos, NeedleWidth, DivNum, color, color, true);
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_ALPHA, MaxAlphaRatio);
+	DrawCone3D(pos, bottomPos, NeedleLength, DivNum, color, color, false);
+	DrawLine3D(pos, posMarker, color);
 }
