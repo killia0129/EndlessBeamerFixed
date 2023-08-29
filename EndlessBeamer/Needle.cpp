@@ -17,6 +17,7 @@ Needle::Needle(VECTOR _pos)
 	type = NEEDLE;
 	hp = DefaultHP;
 	posMarker = pos;
+	deadFlag = false;
 }
 
 Needle::~Needle()

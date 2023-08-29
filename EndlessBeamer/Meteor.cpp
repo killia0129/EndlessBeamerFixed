@@ -25,6 +25,7 @@ Meteor::Meteor(VECTOR _pos, bool _waveFlag)
 	redColorValue = 0;
 	type = METEOR;
 	hp = DefaultHp;
+	deadFlag = false;
 }
 
 Meteor::~Meteor()

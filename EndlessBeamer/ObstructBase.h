@@ -17,7 +17,6 @@ protected:
     float maxHp;//‰ŠúHP
     unsigned int color;//•`‰æF
     int redColorValue;//ÔF‚ÌŠ„‡
-    bool deadFlag;//Á‹‚·‚éÛ‚Étrue
     VECTOR posMarker;//‰º‚É¶‚â‚·ü‚Ì‰º‚Ìpos
     void ColorCanger();
 };
