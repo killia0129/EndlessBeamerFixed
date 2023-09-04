@@ -139,6 +139,7 @@
     <ClCompile Include="Needle.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObstructBase.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="Needle.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObstructBase.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SceneBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
