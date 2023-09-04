@@ -24,6 +24,6 @@ private:
     VECTOR prevPos[AfterImageNum];
 
     void AddRad(float& _rad, float deltaTime, float _turnSpeed);
-    void MoveDecoration(float deltaTime);
+    void MoveDecoration();
 };
 

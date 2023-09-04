@@ -38,6 +38,20 @@ Boss::Boss(VECTOR _pos)
 	hp = DefaultHp;
 	xSpeed = XSpeed;
 	ySpeed = YSpeed;
+	rad = 0.f;
+	color = GetColor(0, MaxColorValue, 0);
+	for (int i = 0; i < BitNum; i++)
+	{
+		if (i == 1)
+		{
+			bitRad[i] = OneEighthRad;
+		}
+		else
+		{
+			bitRad[i] = 0.f;
+		}
+	}
+	MoveDecoration();
 }
 
 Boss::~Boss()
@@ -80,7 +94,7 @@ void Boss::Update(float deltaTime)
 	{
 		AddRad(bitRad[i], deltaTime, BitSpeed[i]);
 	}
-	MoveDecoration(deltaTime);
+	MoveDecoration();
 
 	ColorCanger();
 
@@ -132,7 +146,7 @@ void Boss::AddRad(float& _rad, float deltaTime, float _turnSpeed)
 	}
 }
 
-void Boss::MoveDecoration(float deltaTime)
+void Boss::MoveDecoration()
 {
 	//‚»‚ê‚¼‚ê‚ÌŒÅ—L‚Ì‰ñ“]‚ð‚³‚¹‚é
 	bitPos[0] = VGet(pos.x + (MainToBitDis * cosf(bitRad[0] * DX_PI_F) * cosf(OneEighthRad * DX_PI_F)), pos.y + (MainToBitDis * cosf(bitRad[0] * DX_PI_F) * cosf(OneEighthRad * DX_PI_F)), pos.z - (MainToBitDis * sinf(bitRad[0] * DX_PI_F)));
@@ -147,6 +161,10 @@ void Boss::MoveDecoration(float deltaTime)
 	needleTopPos[1] = VGet(pos.x + (MainToNeedleTopDis * cosf(bitRad[1] * DX_PI_F) * cosf(OneEighthRad * DX_PI_F)), pos.y + (MainToNeedleTopDis * cosf(bitRad[1] * DX_PI_F) * cosf(OneEighthRad * DX_PI_F)), pos.z - (MainToNeedleTopDis * sinf(bitRad[1] * DX_PI_F)));
 	needleTopPos[2] = VGet(pos.x - (MainToNeedleTopDis * cosf(bitRad[2] * DX_PI_F)), pos.y, pos.z - (MainToNeedleTopDis * sinf(bitRad[2] * DX_PI_F)));
 	needleTopPos[3] = VGet(pos.x, pos.y - (MainToNeedleTopDis * cosf(bitRad[3] * DX_PI_F)), pos.z + (MainToNeedleTopDis * sinf(bitRad[3] * DX_PI_F)));
+	lineStart[0] = VGet(pos.x + MainR * sinf(OneEighthRad * DX_PI_F) * cosf(rad * DX_PI_F), pos.y + MainR * cos(OneEighthRad * DX_PI_F), pos.z + MainR * sinf(OneEighthRad * DX_PI_F) * sinf(rad * DX_PI_F));
+	lineEnd[0] = VGet(pos.x - MainR * sinf(OneEighthRad * DX_PI_F) * cosf(rad * DX_PI_F), pos.y - MainR * cos(OneEighthRad * DX_PI_F), pos.z - MainR * sinf(OneEighthRad * DX_PI_F) * sinf(rad * DX_PI_F));
+	lineStart[1] = VGet(pos.x - MainR * sinf(OneEighthRad * DX_PI_F) * cosf((rad + HalfRad) * DX_PI_F), pos.y - MainR * cos(OneEighthRad * DX_PI_F), pos.z - MainR * sinf(OneEighthRad * DX_PI_F) * sinf((rad + HalfRad) * DX_PI_F));
+	lineEnd[1] = VGet(pos.x + MainR * sinf(OneEighthRad * DX_PI_F) * cosf((rad + HalfRad) * DX_PI_F), pos.y + MainR * cos(OneEighthRad * DX_PI_F), pos.z + MainR * sinf(OneEighthRad * DX_PI_F) * sinf((rad + HalfRad) * DX_PI_F));
 }
 
 
