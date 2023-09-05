@@ -7,6 +7,7 @@ public:
 	virtual void Draw() = 0;//描画
 	ObjectType TypeGetter();//オブジェクトの種類を返す
 	bool IsEnd();
+	VECTOR PosGetter();
 
 protected:
 	VECTOR pos;//座標

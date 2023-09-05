@@ -9,3 +9,8 @@ bool Object::IsEnd()
 {
     return deadFlag;
 }
+
+VECTOR Object::PosGetter()
+{
+    return pos;
+}

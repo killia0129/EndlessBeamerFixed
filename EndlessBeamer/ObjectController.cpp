@@ -54,3 +54,8 @@ void ObjectController::ClearAll()
 {
     object.clear();
 }
+
+int ObjectController::GetSize()
+{
+    return object.size();
+}

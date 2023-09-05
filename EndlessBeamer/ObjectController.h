@@ -14,6 +14,7 @@ public:
     void Entry(Object* newObj);
     void Delete();
     void ClearAll();
+    int GetSize();
 
 private:
     vector<Object*> object;
