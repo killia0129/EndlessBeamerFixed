@@ -4,7 +4,7 @@
 //シーン名
 enum GameScene
 {
-	TITLE,GAME,CLEAR,OVER
+	TITLE,GAME,CLEAR,OVER,END
 };
 
 //オブジェクト名
