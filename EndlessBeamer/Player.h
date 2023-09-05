@@ -15,6 +15,6 @@ private:
     VECTOR prevBackPos[16];
     VECTOR aheadPos;
     VECTOR backPos;
-    void SetCapsulePos();
+    void SetCapsulePos();//pos‚©‚ç‘OŒã‚Ìpos‚ðŒvŽZ
 };
 
