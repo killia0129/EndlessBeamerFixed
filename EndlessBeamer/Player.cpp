@@ -7,6 +7,11 @@ const float MaxPadInput = 32768.f;
 const float Speed = 50.f;
 const float StageHalfSize = StageHalfSize / 2.f;
 const float PlayerR = 1.5f;
+const int MaxAfterImageAlpha = 128;
+const int AfterImageAlphaDiff = 8;
+const int DivNum = 4;
+const unsigned int AfterImageColor = GetColor(10, 10, 128);
+const unsigned int MainColor = GetColor(42, 255, 255);
 
 Player::Player()
 {
@@ -84,7 +89,14 @@ void Player::Update(float deltaTime)
 void Player::Draw()
 {
 	//Žc‘œ•`‰æ
-	//‚±‚±‚©‚ç20230904
+	for (int i = 0; i < AfterImageNum; i++)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, MaxAfterImageAlpha - AfterImageAlphaDiff * i);
+		DrawCapsule3D(prevAheadPos[i], prevBackPos[i], PlayerR, DivNum, AfterImageColor, AfterImageColor, false);
+	}
+	//–{‘Ì•\Ž¦
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, MaxAlphaRatio);
+	DrawCapsule3D(aheadPos, backPos, PlayerR, DivNum, MainColor, MainColor, false);
 }
 
 VECTOR Player::PosGetter()
