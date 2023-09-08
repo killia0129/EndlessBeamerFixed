@@ -1,3 +1,4 @@
+#include<math.h>
 #include "PlayerBeam.h"
 
 const float NearMarkRatio = 50.0f / 80.0f;
@@ -19,14 +20,18 @@ const float PlayerHalfSize = 3.f;
 const float OneSixthRad = DX_PI_F / 3.f;
 const float OneTirdRad = DX_PI_F * 2 / 3;
 const int MaxAfterImageAlfa = 128;
-const int AlfaBlendDiff = 8;
+const int AlphaBlendDiff = 8;
 const float BeamR = 0.5f;
 const int BeamDivNum = 4;
 const unsigned int AfterImageBeamColor = GetColor(10, 10, 255);
 const unsigned int BeamColor = GetColor(42, 255, 255);
+const unsigned int BeamLineColor = GetColor(255, 0, 0);
 const float posR = 1.f;
 const int posDivNum = 16;
 const float AimLineLength = 20.f;
+const float TriangleSize = 5.f;
+const float AimMarkR = 1.f;
+const int AimMarkDivNum = 16;
 
 
 PlayerBeam::PlayerBeam()
@@ -107,10 +112,38 @@ void PlayerBeam::Update(float deltaTime)
 
 void PlayerBeam::Draw()
 {
-	//Ç±Ç±Ç©ÇÁ20230905
+	//ï‚èïéOäpå`ï`âÊ
+	SetDrawTriangle(nearTrianglePos);
+	SetDrawTriangle(farTrianglePos);
+	//écëúï`âÊ
+	for (int i = 0; i < AfterImageNum; i++)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, MaxAfterImageAlfa - i * AlphaBlendDiff);
+		DrawCapsule3D(prevPlayerPos[i], prevBeamEndPos[i], BeamR, BeamDivNum, AfterImageBeamColor, AfterImageBeamColor, true);
+	}
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, MaxAlphaRatio);
+	//ÉrÅ[ÉÄï`âÊ
+	DrawCapsule3D(playerPos, beamEndPos, BeamR, BeamDivNum, BeamColor, BeamColor, true);
+	DrawCapsule3D(playerPos, beamEndPos, BeamR, BeamDivNum, BeamLineColor, BeamLineColor, false);
+
+	//è∆èÄï`âÊ
+	//20230908Ç±Ç±Ç©ÇÁ
+	DrawSphere3D(pos, AimMarkR, AimMarkDivNum, BeamLineColor, BeamLineColor, true);
 }
 
 void PlayerBeam::SetPlayerpos(VECTOR pPos)
 {
     playerPos = pPos;
+}
+
+void PlayerBeam::SetDrawTriangle(VECTOR _pos)
+{
+	//ê≥éOäpå`ÇÃíÜêSÇ©ÇÁäeí∏ì_ÇåvéZ
+	VECTOR pos[3];
+	pos[0] = _pos;
+	pos[0].y += TriangleSize;
+	pos[1] = VGet(_pos.x + TriangleSize * sinf(OneSixthRad), _pos.y + TriangleSize * cosf(OneSixthRad), _pos.z);
+	pos[2] = VGet(_pos.x + TriangleSize * sinf(OneTirdRad), _pos.y + TriangleSize * cosf(OneTirdRad), _pos.z);
+
+	DrawTriangle3D(pos[0], pos[1], pos[2], NormalColor, false);
 }

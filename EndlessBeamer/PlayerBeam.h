@@ -19,5 +19,7 @@ private:
     VECTOR beamEndPos;
     VECTOR prevPlayerPos[16];
     VECTOR prevBeamEndPos[16];
+
+    void SetDrawTriangle(VECTOR _pos);
 };
 
