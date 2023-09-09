@@ -30,8 +30,9 @@ const float posR = 1.f;
 const int posDivNum = 16;
 const float AimLineLength = 20.f;
 const float TriangleSize = 5.f;
-const float AimMarkR = 1.f;
-const int AimMarkDivNum = 16;
+const float posR = 1.f;
+const int posDivNum = 16;
+const float StageBottomY = -20.f;
 
 
 PlayerBeam::PlayerBeam()
@@ -127,8 +128,12 @@ void PlayerBeam::Draw()
 	DrawCapsule3D(playerPos, beamEndPos, BeamR, BeamDivNum, BeamLineColor, BeamLineColor, false);
 
 	//è∆èÄï`âÊ
-	//20230908Ç±Ç±Ç©ÇÁ
-	DrawSphere3D(pos, AimMarkR, AimMarkDivNum, BeamLineColor, BeamLineColor, true);
+	DrawSphere3D(pos, posR, posDivNum, BeamLineColor, BeamLineColor, true);
+	DrawLine3D(pos, VGet(pos.x, StageBottomY, pos.z), BeamLineColor);
+	DrawLine3D(VGet(-AimLineLength, StageBottomY, pos.z), VGet(AimLineLength, StageBottomY, pos.z), BeamLineColor);
+	DrawLine3D(VGet(-AimLineLength, pos.y, pos.z), VGet(AimLineLength, pos.y, pos.z), BeamLineColor);
+	DrawLine3D(VGet(-AimLineLength, StageBottomY, pos.z), VGet(StageBottomY, AimLineLength, pos.z), BeamLineColor);
+	DrawLine3D(VGet(AimLineLength, StageBottomY, pos.z), VGet(AimLineLength, AimLineLength, pos.z), BeamLineColor);
 }
 
 void PlayerBeam::SetPlayerpos(VECTOR pPos)
