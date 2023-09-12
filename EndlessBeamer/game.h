@@ -2,7 +2,7 @@
 #include"DxLib.h"
 
 //ÉVÅ[Éìñº
-enum GameScene
+enum GameScenes
 {
 	TITLE,GAME,CLEAR,OVER,END
 };

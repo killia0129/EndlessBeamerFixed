@@ -6,12 +6,16 @@ public:
 	SceneBase();
 	virtual ~SceneBase();
 
-	virtual void Update(float deltaTime) = 0;
+	virtual void Update() = 0;
 	virtual bool IsEnd();
 	virtual GameScene NextScene();
 
 protected:
 	bool sceneEndFlag;//このシーンが終わったらtrue
-	GameScene nextScene;//次のシーン名
+	GameScenes nextScene;//次のシーン名
+
+	float deltaTime;
+	float nowTime;
+	float prevTime;
 };
 
