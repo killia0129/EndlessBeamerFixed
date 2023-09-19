@@ -17,5 +17,9 @@ protected:
 	float deltaTime;
 	float nowTime;
 	float prevTime;
+
+	int colorScreen;
+	int DownScaleScreen;
+	int gaussScreen;
 };
 

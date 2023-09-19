@@ -1,9 +1,15 @@
 #include "ObjectController.h"
 
+const float ObstructSize = 5.f;
+const float BossSize = 8.5f;
+const float ObstructHitEndPosZ = 10.f;
+
 ObjectController::ObjectController()
 {
+    playerPoint = 0;
     playerBeamPoint = 0;
-    playerBeamPoint = 0;
+    plusTime = false;
+    killed = 0;
 }
 
 ObjectController::~ObjectController()
@@ -12,10 +18,13 @@ ObjectController::~ObjectController()
 
 void ObjectController::Update(float deltaTime)
 {
+    plusTime = false;
+    killed = 0;
     for (auto ptr : object)
     {
         ptr->Update(deltaTime);
     }
+    HitChecker(deltaTime);
 }
 
 void ObjectController::DrawAll()
@@ -61,7 +70,7 @@ void ObjectController::HitChecker(float deltaTime)
 {
     for (auto ptr : object)
     {
-        if (ptr->TypeGetter() == NEEDLE || ptr->TypeGetter() == METEOR)
+        if (ptr->TypeGetter() == NEEDLE || ptr->TypeGetter() == METEOR||ptr->TypeGetter()==BOSS)
         {
             float ratio = ptr->PosGetter().z / object[playerBeamPoint]->PosGetter().z;
             float hitPointX = object[playerPoint]->PosGetter().x + ((object[playerBeamPoint]->PosGetter().x - object[playerPoint]->PosGetter().x) * ratio);
@@ -69,6 +78,36 @@ void ObjectController::HitChecker(float deltaTime)
             VECTOR hitPos = VGet(hitPointX, hitPointY, ptr->PosGetter().z);
             float dis = pow((ptr->PosGetter().x - hitPos.x), 2.f) + pow((ptr->PosGetter().y - hitPos.y), 2.f);
             dis = sqrt(dis);
+            if (ptr->TypeGetter() != BOSS)
+            {
+                if (dis<ObstructSize && ptr->PosGetter().z>ObstructHitEndPosZ)
+                {
+                    ptr->GivenDmg(deltaTime);
+                    //ここにエフェクト追加を入れる
+                    if (ptr->IsEnd())
+                    {
+                        if (ptr->TypeGetter() == METEOR)
+                        {
+                            plusTime = true;
+                            //ここに+10.0sの描画開始を入れる
+                        }
+                        killed++;
+                    }
+                }
+            }
+            else
+            {
+                if (dis <= BossSize)
+                {
+                    ptr->GivenDmg(deltaTime);
+                    //ここにエフェクト追加を入れる
+                }
+                if (ptr->IsEnd())
+                {
+                    killed++;
+                }
+            }
+            
         }
     }
 }
@@ -92,3 +131,33 @@ int ObjectController::GetSize()
 {
     return object.size();
 }
+
+bool ObjectController::PlusTimeFlag()
+{
+    return plusTime;
+}
+
+int ObjectController::KilledNum()
+{
+    return killed;
+}
+
+int ObjectController::TypeObjetNumGetter(ObjectType objName)
+{
+    int num = 0;
+    for (auto ptr : object)
+    {
+        if (ptr->TypeGetter() == objName)
+        {
+            num++;
+        }
+    }
+
+    return num;
+}
+
+VECTOR ObjectController::PlayerPosGetter()
+{
+    return object[playerPoint]->PosGetter();
+}
+

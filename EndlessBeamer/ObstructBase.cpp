@@ -1,9 +1,5 @@
 #include "ObstructBase.h"
 
-void ObstructBase::GivenDmg(float dmg)
-{
-	hp -= dmg;
-}
 
 void ObstructBase::ColorCanger()
 {

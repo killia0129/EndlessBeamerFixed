@@ -10,7 +10,7 @@ enum GameScenes
 //オブジェクト名
 enum ObjectType
 {
-	NEEDLE,METEOR,PLAYER,PLAYER_BEAM,BACK_GROUND
+	NEEDLE,METEOR,PLAYER,PLAYER_BEAM,BACK_GROUND,BOSS,TUTORIAL
 };
 
 const int MaxAlphaRatio = 255;

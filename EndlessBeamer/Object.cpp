@@ -14,3 +14,8 @@ VECTOR Object::PosGetter()
 {
     return pos;
 }
+
+void Object::GivenDmg(float dmg)
+{
+    hp -= dmg;
+}

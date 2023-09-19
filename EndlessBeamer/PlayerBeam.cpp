@@ -51,6 +51,7 @@ PlayerBeam::PlayerBeam()
 	mousePointY = 0;
 	pos = DefaultposPos;
 	type = PLAYER_BEAM;
+	deadFlag = false;
 }
 
 PlayerBeam::~PlayerBeam()

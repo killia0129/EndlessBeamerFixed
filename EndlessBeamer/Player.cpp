@@ -16,6 +16,7 @@ const unsigned int MainColor = GetColor(42, 255, 255);
 Player::Player()
 {
 	pos = DefaultPos;
+	deadFlag = false;
 	SetCapsulePos();
 	for (int i = 0; i < AfterImageNum; i++)
 	{

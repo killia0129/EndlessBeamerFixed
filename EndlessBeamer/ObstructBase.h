@@ -10,10 +10,8 @@ class ObstructBase :
 public:
     virtual void Update(float deltaTime)override = 0;//毎フレーム呼び出す
     virtual void Draw()override = 0;//描画
-    void GivenDmg(float dmg);
 
 protected:
-    float hp;//HP
     float maxHp;//初期HP
     unsigned int color;//描画色
     int redColorValue;//赤色の割合
