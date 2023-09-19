@@ -8,7 +8,6 @@ public:
     virtual ~Player();
     void Update(float deltaTime)override;
     void Draw()override;
-    VECTOR PosGetter();
 
 private:
     VECTOR prevAheadPos[16];

@@ -99,10 +99,6 @@ void Player::Draw()
 	DrawCapsule3D(aheadPos, backPos, PlayerR, DivNum, MainColor, MainColor, false);
 }
 
-VECTOR Player::PosGetter()
-{
-	return pos;
-}
 
 void Player::SetCapsulePos()
 {

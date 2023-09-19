@@ -14,9 +14,13 @@ public:
     void Entry(Object* newObj);
     void Delete();
     void ClearAll();
+    void HitChecker(float deltaTime);
+    void SetPlayerAndPlayerBeam();
     int GetSize();
 
 private:
     vector<Object*> object;
+    int playerPoint;
+    int playerBeamPoint;
 };
 

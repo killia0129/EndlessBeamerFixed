@@ -50,6 +50,7 @@ PlayerBeam::PlayerBeam()
 	mousePointX = 0;
 	mousePointY = 0;
 	pos = DefaultposPos;
+	type = PLAYER_BEAM;
 }
 
 PlayerBeam::~PlayerBeam()

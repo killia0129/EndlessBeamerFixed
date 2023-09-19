@@ -15,7 +15,7 @@ bool SceneBase::IsEnd()
 	return sceneEndFlag;
 }
 
-GameScene SceneBase::NextScene()
+GameScenes SceneBase::NextScene()
 {
 	return nextScene;
 }

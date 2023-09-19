@@ -8,7 +8,7 @@ public:
 
 	virtual void Update() = 0;
 	virtual bool IsEnd();
-	virtual GameScene NextScene();
+	virtual GameScenes NextScene();
 
 protected:
 	bool sceneEndFlag;//‚±‚ÌƒV[ƒ“‚ªI‚í‚Á‚½‚çtrue

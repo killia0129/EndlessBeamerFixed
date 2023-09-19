@@ -2,6 +2,8 @@
 
 ObjectController::ObjectController()
 {
+    playerBeamPoint = 0;
+    playerBeamPoint = 0;
 }
 
 ObjectController::~ObjectController()
@@ -53,6 +55,37 @@ void ObjectController::Delete()
 void ObjectController::ClearAll()
 {
     object.clear();
+}
+
+void ObjectController::HitChecker(float deltaTime)
+{
+    for (auto ptr : object)
+    {
+        if (ptr->TypeGetter() == NEEDLE || ptr->TypeGetter() == METEOR)
+        {
+            float ratio = ptr->PosGetter().z / object[playerBeamPoint]->PosGetter().z;
+            float hitPointX = object[playerPoint]->PosGetter().x + ((object[playerBeamPoint]->PosGetter().x - object[playerPoint]->PosGetter().x) * ratio);
+            float hitPointY = object[playerPoint]->PosGetter().y + ((object[playerBeamPoint]->PosGetter().y - object[playerPoint]->PosGetter().y) * ratio);
+            VECTOR hitPos = VGet(hitPointX, hitPointY, ptr->PosGetter().z);
+            float dis = pow((ptr->PosGetter().x - hitPos.x), 2.f) + pow((ptr->PosGetter().y - hitPos.y), 2.f);
+            dis = sqrt(dis);
+        }
+    }
+}
+
+void ObjectController::SetPlayerAndPlayerBeam()
+{
+    for (int i = 0; i < object.size(); i++)
+    {
+        if (object[i]->TypeGetter() == PLAYER)
+        {
+            playerPoint = i;
+        }
+        if (object[i]->TypeGetter() == PLAYER_BEAM)
+        {
+            playerBeamPoint = i;
+        }
+    }
 }
 
 int ObjectController::GetSize()

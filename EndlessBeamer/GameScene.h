@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+#include "ObjectController.h"
 #include"Meteor.h"
 #include"Needle.h"
 #include"Boss.h"
@@ -13,5 +14,8 @@ public:
     GameScene();
     virtual ~GameScene();
     void Update()override;
+
+private:
+    ObjectController* obj;
 };
 
