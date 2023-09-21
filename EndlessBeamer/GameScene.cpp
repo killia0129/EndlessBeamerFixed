@@ -3,6 +3,7 @@
 const float MsRatio = 1000.f;
 const float BackEffectAddSec = 0.3f;
 const int BeamStartNum = 10;
+const int BeamAddNum = 20;
 const float NearCameraEnd = 1.f;
 const float FarCameraEnd = 499.f;
 const VECTOR ZeroPos = VGet(0, 0, 0);
@@ -21,6 +22,7 @@ const float ObsAddSec = 3.f;
 const int ObsNormalTypeNum = 2;
 const int WaveTypeNum = 2;
 const int BeamNum = 4;
+const float BeamCoolDown = 6.0;
 
 GameScene::GameScene()
 {
@@ -54,7 +56,8 @@ GameScene::GameScene()
 
 	for (int i = 0; i < BeamNum; i++)
 	{
-		//20230919‚±‚±‚©‚ç
+		Beam* newBeam = new Beam(i);
+		beam[i] = newBeam;
 	}
 
 	colorScreen = MakeScreen(DefaultWindowWidth, DefaultWindowHeight, false);
@@ -171,14 +174,53 @@ void GameScene::NormalUpdate()
 		}
 		obsCool = 0.f;
 	}
+	deleteCount += obj->KilledNum();
+	if (deleteCount >= BeamStartNum)
+	{
+		phase = BEAM_ONE;
+	}
 }
 
 void GameScene::BeamOneUpdate()
 {
+	NormalUpdate();
+	if (beamCool >= BeamCoolDown)
+	{
+		beam[rand() & BeamNum]->Start();
+		beamCool = 0.f;
+	}
+	for (auto ptr : beam)
+	{
+		ptr->HitCheck(obj->PlayerPosGetter());
+	}
+	if (deleteCount >= BeamAddNum)
+	{
+		phase = BEAM_TWO;
+	}
 }
 
 void GameScene::BeamTwoUpdate()
 {
+	NormalUpdate();
+	if (beamCool >= BeamCoolDown)
+	{
+		int tmp1 = rand() % BeamNum;
+		int tmp2;
+		do
+		{
+			tmp2 = rand() % BeamNum;
+		} while (tmp1 == tmp2);
+		beam[tmp1]->Start();
+		beam[tmp2]->Start();
+	}
+	for (auto ptr : beam)
+	{
+		ptr->HitCheck(obj->PlayerPosGetter());
+	}
+	if (deleteCount >= BeamAddNum)
+	{
+		phase = CHANGE_BOSS;
+	}
 }
 
 void GameScene::ChangeBossUpdate()

@@ -47,6 +47,10 @@ void ObjectController::Delete()
     {
         if (ptr->IsEnd())
         {
+            if (ptr->PosGetter().z > 10.0f)
+            {
+                Entry(new Exprosion(ptr->PosGetter()));
+            }
             deleteObj.emplace_back(ptr);
         }
     }
@@ -83,7 +87,7 @@ void ObjectController::HitChecker(float deltaTime)
                 if (dis<ObstructSize && ptr->PosGetter().z>ObstructHitEndPosZ)
                 {
                     ptr->GivenDmg(deltaTime);
-                    //ここにエフェクト追加を入れる
+                    Entry(new Particle(ptr->PosGetter()));
                     if (ptr->IsEnd())
                     {
                         if (ptr->TypeGetter() == METEOR)
@@ -100,7 +104,7 @@ void ObjectController::HitChecker(float deltaTime)
                 if (dis <= BossSize)
                 {
                     ptr->GivenDmg(deltaTime);
-                    //ここにエフェクト追加を入れる
+                    Entry(new Particle(ptr->PosGetter()));
                 }
                 if (ptr->IsEnd())
                 {
@@ -159,5 +163,20 @@ int ObjectController::TypeObjetNumGetter(ObjectType objName)
 VECTOR ObjectController::PlayerPosGetter()
 {
     return object[playerPoint]->PosGetter();
+}
+
+bool ObjectController::ChangeBoss()
+{
+    for (auto ptr : object)
+    {
+        if (ptr->TypeGetter() == NEEDLE || ptr->TypeGetter() == METEOR)
+        {
+            ptr->SetDead();
+            Entry(new Exprosion(ptr->PosGetter()));
+        }
+    }
+    //ここ書く
+
+    return false;
 }
 

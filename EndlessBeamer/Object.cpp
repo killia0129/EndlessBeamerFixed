@@ -19,3 +19,8 @@ void Object::GivenDmg(float dmg)
 {
     hp -= dmg;
 }
+
+void Object::SetDead()
+{
+    deadFlag = true;
+}

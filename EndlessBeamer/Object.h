@@ -9,6 +9,7 @@ public:
 	bool IsEnd();
 	VECTOR PosGetter();
 	void GivenDmg(float dmg);
+	void SetDead();
 
 protected:
 	VECTOR pos;//ç¿ïW

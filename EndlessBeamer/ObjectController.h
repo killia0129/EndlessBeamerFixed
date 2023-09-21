@@ -1,6 +1,8 @@
 #pragma once
 #include<vector>
 #include"Object.h"
+#include"Exprosion.h"
+#include"Particle.h"
 
 using namespace std;
 
@@ -21,6 +23,7 @@ public:
     int KilledNum();
     int TypeObjetNumGetter(ObjectType objName);
     VECTOR PlayerPosGetter();
+    bool ChangeBoss();
 
 private:
     vector<Object*> object;
