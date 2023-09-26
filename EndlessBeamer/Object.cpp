@@ -1,5 +1,14 @@
 #include "Object.h"
 
+Object::Object()
+{
+    deadFlag = false;
+}
+
+Object::~Object()
+{
+}
+
 ObjectType Object::TypeGetter()
 {
     return type;
@@ -23,4 +32,9 @@ void Object::GivenDmg(float dmg)
 void Object::SetDead()
 {
     deadFlag = true;
+}
+
+void Object::SetPlayerpos(VECTOR pPos)
+{
+    playerPos = pPos;
 }

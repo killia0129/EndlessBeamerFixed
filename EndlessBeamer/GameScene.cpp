@@ -23,6 +23,7 @@ const int ObsNormalTypeNum = 2;
 const int WaveTypeNum = 2;
 const int BeamNum = 4;
 const float BeamCoolDown = 6.0;
+const VECTOR DefaultBossPos = VGet(0.f, 0.f, 550.f);
 
 GameScene::GameScene()
 {
@@ -43,9 +44,8 @@ GameScene::GameScene()
 	deleteCount = 0;
 	time = MaxTime;
 	blinkRad = 0.f;
-	seed = 0;
 	phase = TUTORIAL;
-
+	
 	for (int i = 0; i < CellSize; i++)
 	{
 		for (int j = 0; j < CellSize; j++)
@@ -79,12 +79,13 @@ void GameScene::Update()
 	backCool += deltaTime;
 	time -= deltaTime;
 
+	obj->SetPlayerAndPlayerBeam();
+
 
 	if (deleteCount >= BeamStartNum)
 	{
 		beamCool += deltaTime;
 	}
-	srand(seed);
 
 	SetDrawScreen(colorScreen);
 	ClearDrawScreen();
@@ -104,9 +105,11 @@ void GameScene::Update()
 	switch (phase)
 	{
 	case TUTORIAL:
+		TutorialUpdate();
 		break;
 
 	case NORMAL:
+		NormalUpdate();
 		break;
 
 	case BEAM_ONE:
@@ -126,9 +129,33 @@ void GameScene::Update()
 	}
 
 	
+	obj->Update(deltaTime);
 
+	if (time <= 0.f)
+	{
+		sceneEndFlag = true;
+		nextScene = OVER;
+	}
 
-	
+	obj->Delete();
+
+	obj->DrawAll();
+	/*GraphFilterBlt(colorScreen, DownScaleScreen, DX_GRAPH_FILTER_DOWN_SCALE, 2);
+	GraphFilterBlt(DownScaleScreen, gaussScreen, DX_GRAPH_FILTER_GAUSS, 32, 1500);
+	SetDrawScreen(gaussScreen);
+	DrawBox(0, 0, 1920 / 2, 12, GetColor(0, 0, 0), true);
+	SetDrawScreen(DX_SCREEN_BACK);
+	DrawGraph(0, 0, colorScreen, false);
+	SetDrawMode(DX_DRAWMODE_ANISOTROPIC);
+	SetDrawBlendMode(DX_BLENDMODE_ADD, 255 * (fabs(cosf(blinkRad * DX_PI_F))));
+	DrawExtendGraph(0, 0, 1920, 1080, gaussScreen, false);
+	SetDrawBlendMode(DX_BLENDMODE_ADD, 128 * (fabs(cosf(blinkRad * DX_PI_F))));
+	DrawExtendGraph(0, 0, 1920, 1080, gaussScreen, false);
+
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+	SetDrawMode(DX_DRAWMODE_ANISOTROPIC);*/
+
+	ScreenFlip();
 
 	prevTime = nowTime;
 }
@@ -148,7 +175,7 @@ void GameScene::NormalUpdate()
 		int type = rand() % ObsNormalTypeNum;
 		int cellX, cellY;
 
-		if (type == 0)
+		if (type==0)
 		{
 			cellY = rand() % CellSize;
 			int wave = rand() % WaveTypeNum;
@@ -175,7 +202,7 @@ void GameScene::NormalUpdate()
 		obsCool = 0.f;
 	}
 	deleteCount += obj->KilledNum();
-	if (deleteCount >= BeamStartNum)
+	if (deleteCount >= BeamStartNum && phase==NORMAL)
 	{
 		phase = BEAM_ONE;
 	}
@@ -225,8 +252,19 @@ void GameScene::BeamTwoUpdate()
 
 void GameScene::ChangeBossUpdate()
 {
+	if (obj->ChangeBoss())
+	{
+		Object* newObj = new Boss(DefaultBossPos);
+		obj->Entry(newObj);
+		phase = BOSS;
+	}
 }
 
 void GameScene::BossUpdate()
 {
+	if (obj->TypeObjetNumGetter(ObjectType::BOSS) == 0)
+	{
+		sceneEndFlag = true;
+		nextScene = CLEAR;
+	}
 }

@@ -24,11 +24,10 @@ private:
     };
 
 
-    ObjectController* obj;
+    ObjectController* obj = new ObjectController();
     UI* ui = new UI();
     VECTOR cell[4][4];
     Beam* beam[4];
-    unsigned int seed;
     float count;
     float obsCool;
     float backCool;
@@ -43,5 +42,6 @@ private:
     void BeamTwoUpdate();
     void ChangeBossUpdate();
     void BossUpdate();
+
 };
 

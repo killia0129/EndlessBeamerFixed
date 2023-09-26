@@ -11,7 +11,7 @@ const VECTOR DefaultFarTrianglePos = VGet(0, 0, 140.f);
 const VECTOR DefaultPlayerPos = VGet(0, 0, 30.f);
 const VECTOR DefaultBeamEndPos = VGet(0, 0, 530.f);
 const int AfterImageNum = 16;
-const VECTOR DefaultposPos = VGet(0, 0, 110.f);
+const VECTOR DefaultPos = VGet(0, 0, 110.f);
 const unsigned int NormalColor = GetColor(0, 255, 0);
 const int AimSpeed = 100.f;
 const int MouseBuffer = 0;
@@ -30,8 +30,6 @@ const float posR = 1.f;
 const int posDivNum = 16;
 const float AimLineLength = 20.f;
 const float TriangleSize = 5.f;
-const float posR = 1.f;
-const int posDivNum = 16;
 const float StageBottomY = -20.f;
 
 
@@ -49,7 +47,7 @@ PlayerBeam::PlayerBeam()
 	}
 	mousePointX = 0;
 	mousePointY = 0;
-	pos = DefaultposPos;
+	pos = DefaultPos;
 	type = PLAYER_BEAM;
 	deadFlag = false;
 }
@@ -71,7 +69,7 @@ void PlayerBeam::Update(float deltaTime)
 
 	//マウスの位置を取得しposを移動
 	GetMousePoint(&mousePointX, &mousePointY);
-	if (mousePointX > DefaultMousePointX + MouseBuffer)
+	/*if (mousePointX > DefaultMousePointX + MouseBuffer)
 	{
 		pos.x += (mousePointX - DefaultMousePointX - MouseBuffer) * AimSpeed * deltaTime;
 	}
@@ -86,7 +84,7 @@ void PlayerBeam::Update(float deltaTime)
 	if (mousePointY < DefaultMousePointY - MouseBuffer)
 	{
 		pos.y -= (mousePointY - DefaultMousePointY - MouseBuffer) * AimSpeed * deltaTime;
-	}
+	}*/
 
 	//PADの入力を取得しposを移動
 	XINPUT_STATE padInput;
@@ -138,10 +136,6 @@ void PlayerBeam::Draw()
 	DrawLine3D(VGet(AimLineLength, StageBottomY, pos.z), VGet(AimLineLength, AimLineLength, pos.z), BeamLineColor);
 }
 
-void PlayerBeam::SetPlayerpos(VECTOR pPos)
-{
-    playerPos = pPos;
-}
 
 void PlayerBeam::SetDrawTriangle(VECTOR _pos)
 {

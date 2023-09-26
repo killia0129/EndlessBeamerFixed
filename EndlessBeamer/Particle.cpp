@@ -10,6 +10,7 @@ const float MaxTime = 1.5f;
 const int AlphaRatio = 128;
 const unsigned int Color = GetColor(255, 0, 0);
 const int DivNum = 8;
+const float g = 0.49f;
 
 Particle::Particle(VECTOR _pos)
 {
@@ -29,9 +30,9 @@ void Particle::Update(float deltaTime)
 {
 	rad = ((MaxTime - count) / MaxTime) * ParticleR;
 	yPower -= g * deltaTime;
-	pos.x += xPower;
-	pos.y += yPower;
-	pos.z -= ZSpeed * deltaTime;
+	pos.x += xPower*deltaTime;
+	pos.y += yPower*deltaTime;
+	//pos.z -= ZSpeed * deltaTime;
 	count += deltaTime;
 	if (count > MaxTime)
 	{

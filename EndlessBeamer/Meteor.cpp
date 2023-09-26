@@ -26,6 +26,7 @@ Meteor::Meteor(VECTOR _pos, bool _waveFlag)
 	type = METEOR;
 	hp = DefaultHp;
 	deadFlag = false;
+	maxHp = hp;
 }
 
 Meteor::~Meteor()
@@ -45,6 +46,7 @@ void Meteor::Update(float deltaTime)
 	{
 		deadFlag = true;
 	}
+	posMarker = pos;
 	posMarker.y = MarkerPosY;
 
 	//’¼•û‘Ì•`‰æ—p‚ÌÀ•WŒvZ

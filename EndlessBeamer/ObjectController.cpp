@@ -18,6 +18,7 @@ ObjectController::~ObjectController()
 
 void ObjectController::Update(float deltaTime)
 {
+    object[playerBeamPoint]->SetPlayerpos(object[playerPoint]->PosGetter());
     plusTime = false;
     killed = 0;
     for (auto ptr : object)
@@ -25,6 +26,7 @@ void ObjectController::Update(float deltaTime)
         ptr->Update(deltaTime);
     }
     HitChecker(deltaTime);
+    
 }
 
 void ObjectController::DrawAll()
@@ -47,7 +49,7 @@ void ObjectController::Delete()
     {
         if (ptr->IsEnd())
         {
-            if (ptr->PosGetter().z > 10.0f)
+            if (ptr->PosGetter().z > ObstructHitEndPosZ&&(ptr->TypeGetter()==METEOR|| ptr->TypeGetter() == NEEDLE))
             {
                 Entry(new Exprosion(ptr->PosGetter()));
             }
@@ -175,8 +177,14 @@ bool ObjectController::ChangeBoss()
             Entry(new Exprosion(ptr->PosGetter()));
         }
     }
-    //‚±‚±‘‚­
+    for (auto ptr : object)
+    {
+        if (ptr->TypeGetter() == NEEDLE || ptr->TypeGetter() == METEOR || ptr->TypeGetter() == EXPROSION)
+        {
+            return false;
+        }
+    }
 
-    return false;
+    return true;
 }
 

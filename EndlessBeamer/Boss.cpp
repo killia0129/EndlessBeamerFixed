@@ -6,7 +6,6 @@ const float CoreR = 7.f;
 const float DefaultHp = 2.f;
 const float XSpeed = 0.3f;
 const float YSpeed = 0.4f;
-const float MaxRad = 2.f;
 const float QuarterRad = 0.5f;
 const float OneEighthRad = 0.25f;
 const float MainToBitDis = 20.f;

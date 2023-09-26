@@ -10,7 +10,7 @@ const int DivNum = 8;
 
 Needle::Needle(VECTOR _pos)
 {
-	pos = pos;
+	pos = _pos;
 	bottomPos = _pos;
 	bottomPos.z += NeedleLength;
 	color = GetColor(0, MaxColorValue, 0);
@@ -18,6 +18,7 @@ Needle::Needle(VECTOR _pos)
 	hp = DefaultHP;
 	posMarker = pos;
 	deadFlag = false;
+	maxHp = hp;
 }
 
 Needle::~Needle()
@@ -43,6 +44,6 @@ void Needle::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, MainAlphaRatio);
 	DrawCone3D(pos, bottomPos, NeedleWidth, DivNum, color, color, true);
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_ALPHA, MaxAlphaRatio);
-	DrawCone3D(pos, bottomPos, NeedleLength, DivNum, color, color, false);
+	DrawCone3D(pos, bottomPos, NeedleWidth, DivNum, color, color, false);
 	DrawLine3D(pos, posMarker, color);
 }
