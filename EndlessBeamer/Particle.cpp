@@ -43,6 +43,6 @@ void Particle::Update(float deltaTime)
 void Particle::Draw()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, AlphaRatio);
-	DrawSphere3D(pos, rad, DivNum, Color,Color, false);
+	DrawSphere3D(pos, rad, DivNum, Color,Color, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, MaxAlphaRatio);
 }
