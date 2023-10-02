@@ -147,7 +147,7 @@
       <Filter>ソース ファイル\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

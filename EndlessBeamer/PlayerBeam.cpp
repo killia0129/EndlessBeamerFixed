@@ -18,7 +18,7 @@ const int MouseBuffer = 0;
 const float MaxStickSize = 32768.f;
 const float PlayerHalfSize = 3.f;
 const float OneSixthRad = DX_PI_F / 3.f;
-const float OneTirdRad = DX_PI_F * 2 / 3;
+const float OneTirdRad = DX_PI_F * 2.f / 3.f;
 const int MaxAfterImageAlfa = 128;
 const int AlphaBlendDiff = 8;
 const float BeamR = 0.5f;
@@ -45,8 +45,8 @@ PlayerBeam::PlayerBeam()
 		prevPlayerPos[i] = playerPos;
 		prevBeamEndPos[i] = beamEndPos;
 	}
-	mousePointX = 0;
-	mousePointY = 0;
+	mousePointX = DefaultMousePointX;
+	mousePointY = DefaultMousePointY;
 	pos = DefaultPos;
 	type = PLAYER_BEAM;
 	deadFlag = false;
@@ -65,11 +65,12 @@ void PlayerBeam::Update(float deltaTime)
 		prevBeamEndPos[i] = prevBeamEndPos[i - 1];
 	}
 	prevPlayerPos[0] = playerPos;
+	prevPlayerPos[0].z += PlayerHalfSize;
 	prevBeamEndPos[0] = beamEndPos;
 
 	//マウスの位置を取得しposを移動
 	GetMousePoint(&mousePointX, &mousePointY);
-	/*if (mousePointX > DefaultMousePointX + MouseBuffer)
+	if (mousePointX > DefaultMousePointX + MouseBuffer)
 	{
 		pos.x += (mousePointX - DefaultMousePointX - MouseBuffer) * AimSpeed * deltaTime;
 	}
@@ -84,7 +85,7 @@ void PlayerBeam::Update(float deltaTime)
 	if (mousePointY < DefaultMousePointY - MouseBuffer)
 	{
 		pos.y -= (mousePointY - DefaultMousePointY - MouseBuffer) * AimSpeed * deltaTime;
-	}*/
+	}
 
 	//PADの入力を取得しposを移動
 	XINPUT_STATE padInput;
@@ -143,8 +144,8 @@ void PlayerBeam::SetDrawTriangle(VECTOR _pos)
 	VECTOR pos[3];
 	pos[0] = _pos;
 	pos[0].y += TriangleSize;
-	pos[1] = VGet(_pos.x + TriangleSize * sinf(OneSixthRad), _pos.y + TriangleSize * cosf(OneSixthRad), _pos.z);
-	pos[2] = VGet(_pos.x + TriangleSize * sinf(OneTirdRad), _pos.y + TriangleSize * cosf(OneTirdRad), _pos.z);
+	pos[1] = VGet(_pos.x + TriangleSize * sinf(MaxRad*OneSixthRad), _pos.y + TriangleSize * cosf(MaxRad *OneSixthRad), _pos.z);
+	pos[2] = VGet(_pos.x + TriangleSize * sinf(MaxRad *OneTirdRad), _pos.y + TriangleSize * cosf(MaxRad *OneTirdRad), _pos.z);
 
 	DrawTriangle3D(pos[0], pos[1], pos[2], NormalColor, false);
 }

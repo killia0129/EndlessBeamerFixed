@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-const int ParticleR = 0.5f;
+const int ParticleR = 1.f;
 const float DefaultXPower = -0.5f;
 const float DefaultYPower = -0.25f;
 const float XPowerRange = 20.f;
@@ -11,6 +11,7 @@ const int AlphaRatio = 128;
 const unsigned int Color = GetColor(255, 0, 0);
 const int DivNum = 8;
 const float g = 0.49f;
+const float AddPower = 100.f;
 
 Particle::Particle(VECTOR _pos)
 {
@@ -18,8 +19,8 @@ Particle::Particle(VECTOR _pos)
 	rad = ParticleR;
 	count = 0.f;
 	deadFlag = false;
-	xPower = DefaultXPower + ((float)(rand() % (int)XPowerRange) / XPowerRange);
-	yPower = DefaultYPower + ((float)(rand() % (int)YPowerRange) / YPowerRange);
+	xPower = (DefaultXPower + ((float)(rand() % (int)XPowerRange) / XPowerRange)) * AddPower;
+	yPower = (DefaultYPower + ((float)(rand() % (int)YPowerRange) / YPowerRange)) * AddPower;
 }
 
 Particle::~Particle()
@@ -32,7 +33,7 @@ void Particle::Update(float deltaTime)
 	yPower -= g * deltaTime;
 	pos.x += xPower*deltaTime;
 	pos.y += yPower*deltaTime;
-	//pos.z -= ZSpeed * deltaTime;
+	pos.z -= ZSpeed * deltaTime;
 	count += deltaTime;
 	if (count > MaxTime)
 	{

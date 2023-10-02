@@ -2,7 +2,7 @@
 #include<math.h>
 
 const float CubeSize = 3.5f;
-const float DefaultHp = 5.f;
+const float DefaultHp = 0.5f;
 const float TurnSpeed = 0.75f;
 const float WaveSpeed = 0.5f;
 const float Speed = 40.f;
