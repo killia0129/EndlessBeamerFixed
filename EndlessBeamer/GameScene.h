@@ -9,6 +9,10 @@
 #include"BackEffect.h"
 #include"UI.h";
 #include"Beam.h"
+
+/// <summary>
+/// ゲームプレイシーンの管理
+/// </summary>
 class GameScene :
     public SceneBase
 {
@@ -24,17 +28,17 @@ private:
     };
 
 
-    ObjectController* obj = new ObjectController();
+    ObjectController* obj = new ObjectController();//オブジェクト群
     UI* ui = new UI();
-    VECTOR cell[4][4];
-    Beam* beam[4];
-    float count;
-    float obsCool;
-    float backCool;
-    float beamCool;
-    int deleteCount;
-    float time;
-    float blinkRad;
+    VECTOR cell[4][4];//Obstructの出現位置
+    Beam* beam[4];//お邪魔ビーム
+    float count;//経過時間
+    float obsCool;//Obstructの発生の待機時間
+    float backCool;//背景エフェクトの発生の待機時間
+    float beamCool;//お邪魔ビームの発生の待機時間
+    int deleteCount;//壊されたObstructの数
+    float time;//制限時間
+    float blinkRad;//画面全体の点滅制御用ラジアン角
     PHASE phase;
     void TutorialUpdate();
     void NormalUpdate();

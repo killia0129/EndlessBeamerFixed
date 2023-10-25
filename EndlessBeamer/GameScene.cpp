@@ -113,12 +113,15 @@ void GameScene::Update()
 		break;
 
 	case BEAM_ONE:
+		BeamOneUpdate();
 		break;
 
 	case BEAM_TWO:
+		BeamTwoUpdate();
 		break;
 
 	case CHANGE_BOSS:
+		ChangeBossUpdate();
 		break;
 
 	case BOSS:
@@ -140,6 +143,13 @@ void GameScene::Update()
 	obj->Delete();
 
 	obj->DrawAll();
+
+	for (auto ptr : beam)
+	{
+		ptr->Update(deltaTime);
+		ptr->Draw();
+	}
+
 	/*GraphFilterBlt(colorScreen, DownScaleScreen, DX_GRAPH_FILTER_DOWN_SCALE, 2);
 	GraphFilterBlt(DownScaleScreen, gaussScreen, DX_GRAPH_FILTER_GAUSS, 32, 1500);
 	SetDrawScreen(gaussScreen);
@@ -213,7 +223,7 @@ void GameScene::BeamOneUpdate()
 	NormalUpdate();
 	if (beamCool >= BeamCoolDown)
 	{
-		beam[rand() & BeamNum]->Start();
+		beam[rand() % BeamNum]->Start();
 		beamCool = 0.f;
 	}
 	for (auto ptr : beam)

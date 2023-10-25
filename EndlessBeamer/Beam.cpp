@@ -46,10 +46,11 @@ Beam::~Beam()
 
 void Beam::Update(float deltaTime)
 {
-    if (phase != READY)
+    if (phase == READY)
     {
-        count += deltaTime;
+        return;
     }
+    count += deltaTime;
     if (phase == ANNOUNCE)
     {
         blinkController += deltaTime;
@@ -69,6 +70,7 @@ void Beam::Update(float deltaTime)
         {
             phase = ONFIRE;
         }
+        return;
     }
     if (phase == ONFIRE)
     {
@@ -77,6 +79,7 @@ void Beam::Update(float deltaTime)
         {
             phase = COOLDOWN;
         }
+        return;
     }
     if (phase == COOLDOWN)
     {
@@ -85,6 +88,7 @@ void Beam::Update(float deltaTime)
         {
             phase = READY;
         }
+        return;
     }
 }
 
