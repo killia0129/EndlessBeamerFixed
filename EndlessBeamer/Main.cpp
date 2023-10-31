@@ -5,7 +5,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     SceneManager* scene = new SceneManager();
 
-	ChangeWindowMode(FALSE);
+	ChangeWindowMode(true);
 
 	// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
 	if (DxLib_Init() == -1)
@@ -18,7 +18,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	SetGraphMode(1920, 1080, 32);
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetMousePoint(1920 / 2, 1080 / 2);
-
 
     scene->Update();
     

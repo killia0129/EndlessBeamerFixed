@@ -26,7 +26,6 @@ void ObjectController::Update(float deltaTime)
         ptr->Update(deltaTime);
     }
     HitChecker(deltaTime);
-    
 }
 
 void ObjectController::DrawAll()

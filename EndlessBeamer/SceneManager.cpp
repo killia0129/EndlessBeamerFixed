@@ -17,7 +17,6 @@ void SceneManager::Update()
         scene->Update();
         if (scene->IsEnd())
         {
-            delete scene;
             switch (scene->NextScene())
             {
             case TITLE:

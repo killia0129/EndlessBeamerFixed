@@ -25,6 +25,8 @@ const int BeamNum = 4;
 const float BeamCoolDown = 6.0;
 const VECTOR DefaultBossPos = VGet(0.f, 0.f, 550.f);
 
+int tmp = 0;
+
 GameScene::GameScene()
 {
 	sceneEndFlag = false;
@@ -87,7 +89,7 @@ void GameScene::Update()
 		beamCool += deltaTime;
 	}
 
-	SetDrawScreen(colorScreen);
+	//SetDrawScreen(colorScreen);
 	ClearDrawScreen();
 	SetCameraNearFar(NearCameraEnd, FarCameraEnd);
 	SetCameraPositionAndTarget_UpVecY(ZeroPos, CameraVec);
@@ -164,6 +166,9 @@ void GameScene::Update()
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 	SetDrawMode(DX_DRAWMODE_ANISOTROPIC);*/
+
+	tmp++;
+	DrawFormatString(10, 10, 0xffffff, "%d", tmp);
 
 	ScreenFlip();
 
